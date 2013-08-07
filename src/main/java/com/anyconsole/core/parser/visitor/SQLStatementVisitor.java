@@ -1,6 +1,7 @@
 package com.anyconsole.core.parser.visitor;
 
-import com.anyconsole.core.builder.Builder;
+import com.anyconsole.core.command.Command;
+import com.anyconsole.core.command.CommandBuilder;
 import net.sf.jsqlparser.schema.Table;
 import net.sf.jsqlparser.statement.StatementVisitor;
 import net.sf.jsqlparser.statement.create.table.CreateTable;
@@ -23,14 +24,14 @@ import net.sf.jsqlparser.statement.update.Update;
  */
 
 public class SQLStatementVisitor implements StatementVisitor {
-	private Builder builder;
+	private CommandBuilder commandBuilder;
 
-    public SQLStatementVisitor(Builder builder) {
-		this.builder = builder;
+    public SQLStatementVisitor(CommandBuilder commandBuilder) {
+		this.commandBuilder = commandBuilder;
 	}
 
-	public String getResult() {
-        return builder.getResult();
+	public Command getCommand() {
+        return commandBuilder.getCommand();
     }
 
     @Override
@@ -38,7 +39,7 @@ public class SQLStatementVisitor implements StatementVisitor {
         select.getSelectBody().accept(new SelectVisitor() {
             @Override
             public void visit(PlainSelect plainSelect) {
-                builder.doSelect(plainSelect);
+                commandBuilder.buildSelect(plainSelect);
             }
 
             @Override
@@ -57,7 +58,7 @@ public class SQLStatementVisitor implements StatementVisitor {
         update.getTable().accept(new IntoTableVisitor() {
             @Override
             public void visit(Table table) {
-            	 builder.doUpdate(table, update);
+            	 commandBuilder.buildUpdate(table, update);
             }
         });
     }

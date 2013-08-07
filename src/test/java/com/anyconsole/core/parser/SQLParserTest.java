@@ -1,7 +1,7 @@
 package com.anyconsole.core.parser;
 
-import com.anyconsole.core.builder.MongoExpressionBuilder;
-import com.anyconsole.core.client.MongoClient;
+import com.anyconsole.core.command.MongoCommandBuilder;
+import com.anyconsole.core.command.Result;
 import net.sf.jsqlparser.JSQLParserException;
 import org.junit.After;
 import org.junit.Before;
@@ -20,7 +20,6 @@ public class SQLParserTest {
 
     @After
     public void tearDown() throws Exception {
-
     }
 
     @Test
@@ -31,14 +30,20 @@ public class SQLParserTest {
     @Test
     public void parseUpdateTest() throws JSQLParserException {
         SQLParser parser = new SQLParser("UPDATE table1 SET table1.column=value1");
-        String result = parser.execute(new MongoExpressionBuilder(new MongoClient()));
-        System.out.println(result);
+        MongoCommandBuilder commandBuilder = new MongoCommandBuilder();
+        parser.execute(commandBuilder);
+
+        Result result = commandBuilder.getCommand().execute();
+        System.out.println(result.getStringResult());
     }
     
     @Test
     public void parseUpdateWhereTest() throws JSQLParserException {
         SQLParser parser = new SQLParser("UPDATE table1 SET column1='value1' where column2 = 'value2'");
-        String result = parser.execute(new MongoExpressionBuilder(new MongoClient()));
-        System.out.println(result);
+        MongoCommandBuilder commandBuilder = new MongoCommandBuilder();
+        parser.execute(commandBuilder);
+
+        Result result = commandBuilder.getCommand().execute();
+        System.out.println(result.getStringResult());
     }
 }

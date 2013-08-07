@@ -1,6 +1,6 @@
 package com.anyconsole.core.parser;
 
-import com.anyconsole.core.builder.Builder;
+import com.anyconsole.core.command.CommandBuilder;
 
 /**
  * User: kbabushkin
@@ -8,5 +8,5 @@ import com.anyconsole.core.builder.Builder;
  */
 
 public interface Parser {
-    String execute(Builder builder) throws Exception;
+    void execute(CommandBuilder commandBuilder) throws Exception;
 }

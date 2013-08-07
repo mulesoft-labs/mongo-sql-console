@@ -1,6 +1,6 @@
 package com.anyconsole.core.parser;
 
-import com.anyconsole.core.builder.Builder;
+import com.anyconsole.core.command.CommandBuilder;
 import com.anyconsole.core.parser.visitor.SQLStatementVisitor;
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.parser.CCJSqlParserManager;
@@ -23,9 +23,7 @@ public class SQLParser implements Parser {
     }
 
     @Override
-    public String execute(Builder builder) {
-        SQLStatementVisitor sqlVisitor = new SQLStatementVisitor(builder);
-        statement.accept(sqlVisitor);
-        return sqlVisitor.getResult();
+    public void execute(CommandBuilder commandBuilder) {
+        statement.accept(new SQLStatementVisitor(commandBuilder));
     }
 }

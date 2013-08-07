@@ -1,7 +1,7 @@
 package com.anyconsole.plugin;
 
-import com.anyconsole.core.builder.MongoExpressionBuilder;
-import com.anyconsole.core.client.MongoClient;
+import com.anyconsole.core.command.MongoCommandBuilder;
+import com.anyconsole.core.command.Result;
 import com.anyconsole.core.parser.Parser;
 import com.anyconsole.core.parser.SQLParser;
 import net.sf.jsqlparser.JSQLParserException;
@@ -9,8 +9,6 @@ import org.springframework.stereotype.Component;
 
 @Component("mongo-plugin")
 public class MongoPlugin implements Plugin {
-
-    private MongoClient mongoClient = new MongoClient();
 
 	@Override
 	public Parser parse(String statement) {
@@ -24,8 +22,11 @@ public class MongoPlugin implements Plugin {
 	@Override
 	public String execute(Parser parser) {
 		try {
-            //TODO: builder should not actual select/update
-			return parser.execute(new MongoExpressionBuilder(mongoClient));
+            MongoCommandBuilder commandBuilder = new MongoCommandBuilder();
+            parser.execute(commandBuilder);
+
+            Result result = commandBuilder.getCommand().execute();
+            return result.getStringResult();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

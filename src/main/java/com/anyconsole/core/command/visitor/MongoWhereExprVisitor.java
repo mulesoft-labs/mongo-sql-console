@@ -1,4 +1,4 @@
-package com.anyconsole.core.builder.visitor;
+package com.anyconsole.core.command.visitor;
 
 import com.anyconsole.util.MongoStringUtils;
 
