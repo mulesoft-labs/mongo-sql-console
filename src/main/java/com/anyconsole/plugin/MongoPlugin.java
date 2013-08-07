@@ -7,7 +7,7 @@ import com.anyconsole.core.parser.SQLParser;
 import net.sf.jsqlparser.JSQLParserException;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component("mongo-plugin")
 public class MongoPlugin implements Plugin {
 
     private MongoClient mongoClient = new MongoClient();

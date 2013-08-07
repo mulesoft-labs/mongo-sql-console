@@ -11,7 +11,6 @@
 	<properties>
 		<spring.version>3.1.0.RELEASE</spring.version>
 		<jersey.version>1.10</jersey.version>
-		<jackson_1.version>1.9.6</jackson_1.version>
 		<slf4j.version>1.6.2</slf4j.version>
 		<mongo.driver.version>2.7.3</mongo.driver.version>
 		<morphia.version>0.99</morphia.version>
