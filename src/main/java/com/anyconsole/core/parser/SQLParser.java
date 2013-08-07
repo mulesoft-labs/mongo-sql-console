@@ -1,6 +1,7 @@
 package com.anyconsole.core.parser;
 
-import com.anyconsole.db.Builder;
+import com.anyconsole.core.builder.Builder;
+import com.anyconsole.core.parser.visitor.SQLStatementVisitor;
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.parser.CCJSqlParserManager;
 import net.sf.jsqlparser.statement.Statement;

@@ -1,4 +1,4 @@
-package com.anyconsole.db;
+package com.anyconsole.util;
 
 import org.springframework.util.StringUtils;
 

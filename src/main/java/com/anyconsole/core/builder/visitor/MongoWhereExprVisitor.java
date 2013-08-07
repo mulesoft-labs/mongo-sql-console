@@ -1,6 +1,6 @@
-package com.anyconsole.db;
+package com.anyconsole.core.builder.visitor;
 
-import org.springframework.util.StringUtils;
+import com.anyconsole.util.MongoStringUtils;
 
 import com.mongodb.BasicDBObject;
 
@@ -172,7 +172,7 @@ public class MongoWhereExprVisitor implements ExpressionVisitor {
 	@Override
 	public void visit(EqualsTo equalsTo) {
 		where.append(equalsTo.getLeftExpression().toString(), 
-				MongoStringUtils.trimSingleQuotes(equalsTo.getRightExpression().toString()));		
+				MongoStringUtils.trimSingleQuotes(equalsTo.getRightExpression().toString()));
 	}
 
 

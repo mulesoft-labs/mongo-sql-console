@@ -1,4 +1,4 @@
-package com.anyconsole.db;
+package com.anyconsole.core.builder;
 
 import net.sf.jsqlparser.schema.Table;
 import net.sf.jsqlparser.statement.select.PlainSelect;

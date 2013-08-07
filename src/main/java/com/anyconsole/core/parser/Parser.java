@@ -1,6 +1,6 @@
 package com.anyconsole.core.parser;
 
-import com.anyconsole.db.Builder;
+import com.anyconsole.core.builder.Builder;
 
 /**
  * User: kbabushkin

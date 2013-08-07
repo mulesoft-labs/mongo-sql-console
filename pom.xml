@@ -170,6 +170,10 @@
                     <stopPort>9999</stopPort>
                     <systemProperties>
                         <systemProperty>
+                            <name>catalina.home</name>
+                            <value>${project.build.directory}</value>
+                        </systemProperty>
+                        <systemProperty>
                             <name>tcat.instanceId</name>
                             <value>1</value>
                         </systemProperty>

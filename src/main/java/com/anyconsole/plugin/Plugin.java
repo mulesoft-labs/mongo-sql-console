@@ -1,4 +1,4 @@
-package com.anyconsole.db;
+package com.anyconsole.plugin;
 
 import com.anyconsole.core.parser.Parser;
 

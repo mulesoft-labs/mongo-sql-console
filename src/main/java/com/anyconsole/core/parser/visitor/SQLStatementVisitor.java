@@ -1,6 +1,6 @@
-package com.anyconsole.core.parser;
+package com.anyconsole.core.parser.visitor;
 
-import com.anyconsole.db.Builder;
+import com.anyconsole.core.builder.Builder;
 import net.sf.jsqlparser.schema.Table;
 import net.sf.jsqlparser.statement.StatementVisitor;
 import net.sf.jsqlparser.statement.create.table.CreateTable;

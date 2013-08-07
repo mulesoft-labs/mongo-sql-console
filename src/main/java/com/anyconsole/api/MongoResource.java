@@ -1,7 +1,7 @@
 package com.anyconsole.api;
 
 import com.anyconsole.core.parser.Parser;
-import com.anyconsole.db.Plugin;
+import com.anyconsole.plugin.Plugin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
