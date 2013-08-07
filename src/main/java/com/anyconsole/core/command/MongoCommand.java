@@ -7,13 +7,14 @@ import com.anyconsole.core.client.MongoClient;
  * Date: 8/7/13
  */
 
-public class MongoCommand implements Command {
+public abstract class MongoCommand implements Command {
 
-    private MongoClient mongoClient = new MongoClient();
+    protected MongoClient mongoClient = new MongoClient();
+    
+    protected String collection;
 
-    @Override
-    public Result execute() {
-        //TODO: implement command execution
-        return new MongoResult();
+    public MongoCommand withCollection(String collection) {
+        this.collection = collection;
+        return this;
     }
 }
