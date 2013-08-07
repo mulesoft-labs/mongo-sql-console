@@ -130,8 +130,8 @@ public class MongoPlugin implements Plugin {
 				updateExpr.append(colNames.get(i).getColumnName(), values.get(i).toString());
 			}
 			
-			doc = update.getWhere();
-			WriteResult wr = coll.updateMulti(new BasicDBObject("i", new BasicDBObject("$gt", 50)), doc);
+			//doc = update.getWhere();
+			//WriteResult wr = coll.updateMulti(new BasicDBObject("i", new BasicDBObject("$gt", 50)), doc);
 		}
 
 	}
