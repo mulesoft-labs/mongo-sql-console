@@ -13,24 +13,21 @@
 	</context-param>
 
 	<listener>
-		<listener-class>com.mulesoft.ion.web.utils.MorphiaLoggingOverrideListener</listener-class>
-	</listener>
-
-	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
 	<servlet>
 		<servlet-name>Jersey</servlet-name>
 		<servlet-class>com.sun.jersey.spi.spring.container.servlet.SpringServlet</servlet-class>
-		<init-param>
-			<param-name>com.sun.jersey.spi.container.ResourceFilters</param-name>
-		</init-param>
 	</servlet>
 	
 	<servlet-mapping>
 		<servlet-name>Jersey</servlet-name>
 		<url-pattern>/api/*</url-pattern>
 	</servlet-mapping>
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
 
 </web-app>
