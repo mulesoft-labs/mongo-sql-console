@@ -10,6 +10,8 @@ import com.mongodb.Mongo;
 import com.mongodb.MongoException;
 import com.mongodb.WriteResult;
 import net.sf.jsqlparser.JSQLParserException;
+import net.sf.jsqlparser.expression.Expression;
+import net.sf.jsqlparser.schema.Column;
 import net.sf.jsqlparser.schema.Table;
 import net.sf.jsqlparser.statement.select.PlainSelect;
 import net.sf.jsqlparser.statement.update.Update;
@@ -17,6 +19,7 @@ import net.sf.jsqlparser.statement.update.Update;
 import org.springframework.stereotype.Component;
 
 import java.net.UnknownHostException;
+import java.util.List;
 import java.util.Set;
 
 @Component
@@ -120,7 +123,15 @@ public class MongoPlugin implements Plugin {
 		@Override
 		public void doUpdate(Table table, Update update) {
 			DBCollection coll = MongoPlugin.this.getDatastore(DB_NAME).getCollection(table.getName());
-			//BasicDBObject doc = new BasicDBObject("name", "MongoDB").
+			List<Column> colNames = update.getColumns();
+			List<Expression> values = update.getExpressions();
+			BasicDBObject updateExpr = new BasicDBObject();
+			for (int i = 0; i < colNames.size(); ++i) {
+				updateExpr.append(colNames.get(i).getColumnName(), values.get(i).toString());
+			}
+			
+			doc = update.getWhere();
+			WriteResult wr = coll.updateMulti(new BasicDBObject("i", new BasicDBObject("$gt", 50)), doc);
 		}
 
 	}

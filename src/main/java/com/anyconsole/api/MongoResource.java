@@ -23,12 +23,12 @@ public class MongoResource {
 	private Plugin mongoPlugin;
 
     @POST
-    private String post(String statement) throws Exception {
+    public String post(String statement) throws Exception {
         // mongoPlugin.parse
         // if parse failed return 404 + message
         // if parse succeeded call execute and return result
 
         Parser parser = mongoPlugin.parse(statement);
-        return parser.execute();
+        return mongoPlugin.execute(parser);
     }
 }
