@@ -1,5 +1,7 @@
 package com.anyconsole.db;
 
+import org.springframework.util.StringUtils;
+
 import com.mongodb.BasicDBObject;
 
 import net.sf.jsqlparser.expression.AllComparisonExpression;
@@ -50,7 +52,6 @@ import net.sf.jsqlparser.statement.select.SubSelect;
 public class MongoWhereExprVisitor implements ExpressionVisitor {
 	
 	private BasicDBObject where;
-	private BasicDBObject condition;
 
 	public MongoWhereExprVisitor(BasicDBObject where) {
 		this.where = where;
@@ -170,8 +171,11 @@ public class MongoWhereExprVisitor implements ExpressionVisitor {
 
 	@Override
 	public void visit(EqualsTo equalsTo) {
-		getCondition().append("$eq", equalsTo.getStringExpression());
-		
+		where.append(equalsTo.getLeftExpression().toString(), new BasicDBObject("$eq", trimSingleQuotes(equalsTo.getRightExpression().toString())));		
+	}
+
+	private String trimSingleQuotes(String string) {
+		return string == null ? string : StringUtils.trimTrailingCharacter(StringUtils.trimLeadingCharacter(string, '\''), '\'');
 	}
 
 	@Override
@@ -224,16 +228,10 @@ public class MongoWhereExprVisitor implements ExpressionVisitor {
 
 	@Override
 	public void visit(Column col) {
-		where.append(col.getColumnName(), getCondition());
+	//	where.append(col.getColumnName(), getCondition());
 	}
 
-	private BasicDBObject getCondition() {
-		if (condition == null) {
-			condition = new BasicDBObject();
-		}
-		return condition;
-	}
-
+	
 	@Override
 	public void visit(SubSelect arg0) {
 		// TODO Auto-generated method stub
