@@ -1,15 +1,15 @@
 package com.anyconsole.api;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-
 import com.sun.jersey.api.core.ResourceContext;
 import org.springframework.stereotype.Component;
-import javax.ws.rs.Consumes;
+
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * User: kbabushkin
@@ -17,7 +17,6 @@ import javax.ws.rs.core.Context;
  */
 
 @Path("/api")
-@Consumes("application/json")
 @Produces("application/json")
 @Component("any-console-resource")
 public class AnyConsoleResource {
@@ -349,13 +348,14 @@ public class AnyConsoleResource {
 
     @Context
     private ResourceContext resourceContext;
-    
-    @Path("/keywords")
+
+    @GET
+    @Path("keywords")
     public Set<String> getSQLKeywords() {
     	return SQL_KEYWORDS;
     }
 
-    @Path("/mongo")
+    @Path("mongo")
     public MongoResource getMongoResource() {
         return resourceContext.getResource(MongoResource.class);
     }
