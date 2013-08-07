@@ -1,5 +1,12 @@
 package com.anyconsole.db;
 
+import java.net.UnknownHostException;
+import java.util.Set;
+
+import net.sf.jsqlparser.JSQLParserException;
+
+import org.springframework.stereotype.Component;
+
 import com.anyconsole.core.parser.Parser;
 import com.anyconsole.core.parser.SQLParser;
 import com.mongodb.BasicDBObject;
@@ -9,24 +16,11 @@ import com.mongodb.DBCursor;
 import com.mongodb.Mongo;
 import com.mongodb.MongoException;
 import com.mongodb.WriteResult;
-import net.sf.jsqlparser.JSQLParserException;
-import net.sf.jsqlparser.expression.Expression;
-import net.sf.jsqlparser.schema.Column;
-import net.sf.jsqlparser.schema.Table;
-import net.sf.jsqlparser.statement.select.PlainSelect;
-import net.sf.jsqlparser.statement.update.Update;
-
-import org.springframework.stereotype.Component;
-
-import java.net.UnknownHostException;
-import java.util.List;
-import java.util.Set;
 
 @Component
 public class MongoPlugin implements Plugin {
 
 	private Mongo mongoClient;
-	private static String DB_NAME = "hackathon";
 
 	@Override
 	public Parser parse(String statement) {
@@ -40,7 +34,7 @@ public class MongoPlugin implements Plugin {
 	@Override
 	public String execute(Parser parser) {
 		try {
-			return parser.execute(new MongoExpressionBuilder());
+			return parser.execute(new MongoExpressionBuilder(this));
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -106,34 +100,6 @@ public class MongoPlugin implements Plugin {
 	}
 
 
-	public class MongoExpressionBuilder implements Builder {
-		private String result = "";
-		
-		@Override
-		public String getResult() {
-			return result;
-		}
 
-		@Override
-		public void doSelect(PlainSelect plainSelect) {
-			DBCollection coll = MongoPlugin.this.getDatastore(DB_NAME).getCollection(plainSelect.getFromItem().getAlias());
-
-		}
-
-		@Override
-		public void doUpdate(Table table, Update update) {
-			DBCollection coll = MongoPlugin.this.getDatastore(DB_NAME).getCollection(table.getName());
-			List<Column> colNames = update.getColumns();
-			List<Expression> values = update.getExpressions();
-			BasicDBObject updateExpr = new BasicDBObject();
-			for (int i = 0; i < colNames.size(); ++i) {
-				updateExpr.append(colNames.get(i).getColumnName(), values.get(i).toString());
-			}
-			
-			//doc = update.getWhere();
-			//WriteResult wr = coll.updateMulti(new BasicDBObject("i", new BasicDBObject("$gt", 50)), doc);
-		}
-
-	}
 
 }
