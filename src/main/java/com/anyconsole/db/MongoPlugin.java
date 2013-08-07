@@ -23,6 +23,7 @@ import java.util.Set;
 public class MongoPlugin implements Plugin {
 
 	private Mongo mongoClient;
+	private static String DB_NAME = "hackathon";
 
     @Override
     public Parser parse(String statement) {
@@ -112,13 +113,13 @@ public class MongoPlugin implements Plugin {
 
 		@Override
 		public void doSelect(PlainSelect plainSelect) {
-			// TODO Auto-generated method stub
+			DBCollection coll = MongoPlugin.this.getDatastore(DB_NAME).getCollection(plainSelect.getFromItem().getAlias());
 			
 		}
 
 		@Override
 		public void doUpdate(Table table, Update update) {
-			// TODO Auto-generated method stub
+			 DBCollection coll = MongoPlugin.this.getDatastore(DB_NAME).getCollection(table.getName());
 			
 		}
 
