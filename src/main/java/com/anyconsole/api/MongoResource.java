@@ -1,12 +1,13 @@
 package com.anyconsole.api;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Produces;
-
+import com.anyconsole.core.parser.Parser;
+import com.anyconsole.db.Plugin;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.anyconsole.db.Plugin;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Produces;
 
 /**
  * User: kbabushkin
@@ -17,14 +18,17 @@ import com.anyconsole.db.Plugin;
 @Produces("application/json")
 @Component("mongo-resource")
 public class MongoResource {
-	
+
+    @Autowired
 	private Plugin mongoPlugin;
 
-    @GET
-    private String get() {
-    	// mongoPlugin.parse
-    	// if parse failed return 404 + message
-    	// if parse succeeded call execute and return result
-        return null;
+    @POST
+    private String post(String statement) throws Exception {
+        // mongoPlugin.parse
+        // if parse failed return 404 + message
+        // if parse succeeded call execute and return result
+
+        Parser parser = mongoPlugin.parse(statement);
+        return parser.execute();
     }
 }

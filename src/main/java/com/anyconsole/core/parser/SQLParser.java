@@ -3,7 +3,6 @@ package com.anyconsole.core.parser;
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.parser.CCJSqlParserManager;
 import net.sf.jsqlparser.statement.Statement;
-import net.sf.jsqlparser.statement.select.Select;
 
 import java.io.StringReader;
 
@@ -22,10 +21,9 @@ public class SQLParser implements Parser {
     }
 
     @Override
-    public String execute() throws JSQLParserException {
+    public String execute() {
         SQLVisitor sqlVisitor = new SQLVisitor();
-        sqlVisitor.getTableList((Select) statement);
-
+        statement.accept(sqlVisitor);
         return sqlVisitor.getMongoExpression();
     }
 }
