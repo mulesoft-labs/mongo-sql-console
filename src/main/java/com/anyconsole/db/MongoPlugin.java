@@ -29,10 +29,8 @@ public class MongoPlugin implements Plugin {
         try {
             return new SQLParser(statement);
         } catch (JSQLParserException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-
-        return null;
     }
 
     @Override
@@ -40,10 +38,8 @@ public class MongoPlugin implements Plugin {
         try {
             return parser.execute(new MongoExpressionBuilder());
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-
-        return null;
     }
 
     // let's assume for now that db is localhost and has no credentials. MS.
