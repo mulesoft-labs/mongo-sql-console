@@ -1,6 +1,7 @@
 package com.anyconsole.core.parser;
 
 import net.sf.jsqlparser.JSQLParserException;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,7 +28,6 @@ public class SQLParserTest {
     @Test
     public void parseSelectTest() throws JSQLParserException {
         SQLParser parser = new SQLParser("SELECT * FROM table1");
-        //parser.execute();
     }
 
     @Test

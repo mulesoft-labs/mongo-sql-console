@@ -1,7 +1,6 @@
 package com.anyconsole.core.parser;
 
 import com.anyconsole.db.Builder;
-
 import net.sf.jsqlparser.schema.Table;
 import net.sf.jsqlparser.statement.StatementVisitor;
 import net.sf.jsqlparser.statement.create.table.CreateTable;
@@ -23,10 +22,10 @@ import net.sf.jsqlparser.statement.update.Update;
  * Date: 8/6/13
  */
 
-public class SQLVisitor implements StatementVisitor {
+public class SQLStatementVisitor implements StatementVisitor {
 	private Builder builder;
 
-    public SQLVisitor(Builder builder) {
+    public SQLStatementVisitor(Builder builder) {
 		this.builder = builder;
 	}
 
