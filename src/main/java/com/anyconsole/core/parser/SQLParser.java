@@ -6,6 +6,8 @@ import net.sf.jsqlparser.statement.Statement;
 
 import java.io.StringReader;
 
+import com.anyconsole.db.Builder;
+
 /**
  * User: kbabushkin
  * Date: 8/6/13
@@ -21,9 +23,9 @@ public class SQLParser implements Parser {
     }
 
     @Override
-    public String execute() {
-        SQLVisitor sqlVisitor = new SQLVisitor();
+    public String execute(Builder builder) {
+        SQLVisitor sqlVisitor = new SQLVisitor(builder);
         statement.accept(sqlVisitor);
-        return sqlVisitor.getMongoExpression();
+        return sqlVisitor.getResult();
     }
 }

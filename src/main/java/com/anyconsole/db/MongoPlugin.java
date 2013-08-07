@@ -10,6 +10,10 @@ import com.mongodb.Mongo;
 import com.mongodb.MongoException;
 import com.mongodb.WriteResult;
 import net.sf.jsqlparser.JSQLParserException;
+import net.sf.jsqlparser.schema.Table;
+import net.sf.jsqlparser.statement.select.PlainSelect;
+import net.sf.jsqlparser.statement.update.Update;
+
 import org.springframework.stereotype.Component;
 
 import java.net.UnknownHostException;
@@ -18,7 +22,7 @@ import java.util.Set;
 @Component
 public class MongoPlugin implements Plugin {
 
-    private Mongo mongoClient;
+	private Mongo mongoClient;
 
     @Override
     public Parser parse(String statement) {
@@ -34,7 +38,7 @@ public class MongoPlugin implements Plugin {
     @Override
     public String execute(Parser parser) {
         try {
-            return parser.execute();
+            return parser.execute(new MongoExpressionBuilder());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -100,4 +104,28 @@ public class MongoPlugin implements Plugin {
         }
         return mongoClient;
     }
+    
+
+    public class MongoExpressionBuilder implements Builder {
+
+		@Override
+		public String getResult() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public void doSelect(PlainSelect plainSelect) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void doUpdate(Table table, Update update) {
+			// TODO Auto-generated method stub
+			
+		}
+
+	}
+
 }

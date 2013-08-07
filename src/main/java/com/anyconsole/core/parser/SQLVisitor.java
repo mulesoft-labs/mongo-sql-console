@@ -1,5 +1,7 @@
 package com.anyconsole.core.parser;
 
+import com.anyconsole.db.Builder;
+
 import net.sf.jsqlparser.schema.Table;
 import net.sf.jsqlparser.statement.StatementVisitor;
 import net.sf.jsqlparser.statement.create.table.CreateTable;
@@ -22,10 +24,14 @@ import net.sf.jsqlparser.statement.update.Update;
  */
 
 public class SQLVisitor implements StatementVisitor {
-    private String mongoExpression;
+	private Builder builder;
 
-    public String getMongoExpression() {
-        return mongoExpression;
+    public SQLVisitor(Builder builder) {
+		this.builder = builder;
+	}
+
+	public String getResult() {
+        return builder.getResult();
     }
 
     @Override
@@ -33,8 +39,7 @@ public class SQLVisitor implements StatementVisitor {
         select.getSelectBody().accept(new SelectVisitor() {
             @Override
             public void visit(PlainSelect plainSelect) {
-                //TODO: implement
-                //mongoExpression =
+                builder.doSelect(plainSelect);
             }
 
             @Override
@@ -49,14 +54,11 @@ public class SQLVisitor implements StatementVisitor {
     }
 
     @Override
-    public void visit(Update update) {
-        update.getWhere();
-        update.getColumns();
+    public void visit(final Update update) {
         update.getTable().accept(new IntoTableVisitor() {
             @Override
             public void visit(Table table) {
-                //TODO: implement
-                //mongoExpression =
+            	 builder.doUpdate(table, update);
             }
         });
     }
