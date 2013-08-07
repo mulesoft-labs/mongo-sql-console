@@ -116,6 +116,11 @@
             <artifactId>spring-test</artifactId>
             <version>${spring.version}</version>
         </dependency>
+        <dependency>
+            <groupId>net.sf.jsqlparser</groupId>
+            <artifactId>jsqlparser</artifactId>
+            <version>0.8.1-SNAPSHOT</version>
+        </dependency>
 	</dependencies>
 
 	<repositories>
@@ -123,6 +128,14 @@
 			<id>morphia</id>
 			<url>http://morphia.googlecode.com/svn/mavenrepo/</url>
 		</repository>
+
+        <repository>
+            <id>jsqlparser-snapshots</id>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <url>https://raw.github.com/wumpz/maven_repo/master/snapshots</url>
+        </repository>
 	</repositories>
 
 	<build>
