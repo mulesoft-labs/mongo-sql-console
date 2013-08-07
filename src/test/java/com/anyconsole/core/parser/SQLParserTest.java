@@ -39,7 +39,7 @@ public class SQLParserTest {
     
     @Test
     public void parseUpdateWhereTest() throws JSQLParserException {
-        SQLParser parser = new SQLParser("UPDATE table1 SET column='value1' where column2 = 'value2'");
+        SQLParser parser = new SQLParser("UPDATE table1 SET column1='value1' where column2 = 'value2'");
         String result = parser.execute(new MongoExpressionBuilder(new MongoPlugin()));
         System.out.println(result);
     }

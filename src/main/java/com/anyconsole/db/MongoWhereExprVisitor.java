@@ -171,12 +171,10 @@ public class MongoWhereExprVisitor implements ExpressionVisitor {
 
 	@Override
 	public void visit(EqualsTo equalsTo) {
-		where.append(equalsTo.getLeftExpression().toString(), new BasicDBObject("$eq", trimSingleQuotes(equalsTo.getRightExpression().toString())));		
+		where.append(equalsTo.getLeftExpression().toString(), 
+				MongoStringUtils.trimSingleQuotes(equalsTo.getRightExpression().toString()));		
 	}
 
-	private String trimSingleQuotes(String string) {
-		return string == null ? string : StringUtils.trimTrailingCharacter(StringUtils.trimLeadingCharacter(string, '\''), '\'');
-	}
 
 	@Override
 	public void visit(GreaterThan arg0) {

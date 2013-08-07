@@ -39,8 +39,9 @@ public class MongoExpressionBuilder implements Builder {
 		List<Column> colNames = update.getColumns();
 		List<Expression> values = update.getExpressions();
 		BasicDBObject updateExpr = new BasicDBObject();
+		BasicDBObject statement = new BasicDBObject("$set", updateExpr);
 		for (int i = 0; i < colNames.size(); ++i) {
-			updateExpr.append(colNames.get(i).getColumnName(), values.get(i).toString());
+			updateExpr.append(colNames.get(i).getColumnName(), MongoStringUtils.trimSingleQuotes(values.get(i).toString()));
 		}
 		
 		BasicDBObject where = new BasicDBObject();
@@ -50,7 +51,7 @@ public class MongoExpressionBuilder implements Builder {
 			updateWhere.accept(exprVisitor);
 		}
 			
-		WriteResult wr = coll.updateMulti(exprVisitor.getExpression(), updateExpr);
+		WriteResult wr = coll.update(exprVisitor.getExpression(), statement);
 		result = wr.toString();
 	}
 
