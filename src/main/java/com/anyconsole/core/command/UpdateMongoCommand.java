@@ -1,5 +1,6 @@
 package com.anyconsole.core.command;
 
+import com.anyconsole.core.client.MongoClient;
 import com.anyconsole.core.command.visitor.MongoWhereExpressionVisitor;
 import com.anyconsole.util.MongoStringUtils;
 import com.mongodb.BasicDBObject;
@@ -37,7 +38,7 @@ public final class UpdateMongoCommand extends MongoCommand {
             updateWhere.accept(whereExprVisitor);
         }
 
-        DBCollection coll = mongoClient.getDatastore().getCollection(collection);
+        DBCollection coll = MongoClient.getDatastore().getCollection(collection);
         WriteResult wr = coll.update(whereExprVisitor.getExpression(), new BasicDBObject("$set", updateExpr));
 
         return new MongoResult<String>(wr.getError() == null ? "" : wr.getError());

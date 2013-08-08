@@ -1,5 +1,6 @@
 package com.anyconsole.core.command;
 
+import com.anyconsole.core.client.MongoClient;
 import com.anyconsole.core.command.visitor.MongoColumnsExpressionVisitor;
 import com.anyconsole.core.command.visitor.MongoWhereExpressionVisitor;
 import com.mongodb.BasicDBObject;
@@ -81,7 +82,7 @@ public final class SelectMongoCommand extends MongoCommand {
             updateWhere.accept(whereExprVisitor);
         }
 
-        DBCollection mongoCollection = mongoClient.getDatastore().getCollection(collection);
+        DBCollection mongoCollection = MongoClient.getDatastore().getCollection(collection);
         DBCursor cursor = mongoCollection.find(whereExprVisitor.getExpression(), columnsExpr);
 
         List<DBObject> resultList = new ArrayList<DBObject>();

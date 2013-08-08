@@ -15,17 +15,16 @@ public class MongoClient {
     private static String DEFAULT_DB_NAME = "hackathon";
     private static Mongo mongoClient;
 
-
     // let's assume for now that db is localhost and has no credentials. MS.
-    public DB getDatastore() {
+    public static DB getDatastore() {
         return getClient().getDB(DEFAULT_DB_NAME);
     }
 
-    public DB getDatastore(String dbName) {
+    public static DB getDatastore(String dbName) {
         return getClient().getDB(dbName);
     }
 
-    private Mongo getClient() {
+    public static synchronized Mongo getClient() {
         if (mongoClient == null) {
             try {
                 mongoClient = new Mongo("127.0.0.1" , 27017 );
