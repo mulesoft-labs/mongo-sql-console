@@ -1,5 +1,6 @@
 package com.anyconsole.api;
 
+import com.anyconsole.core.command.Result;
 import com.anyconsole.core.parser.Parser;
 import com.anyconsole.plugin.Plugin;
 import net.sf.jsqlparser.JSQLParserException;
@@ -28,7 +29,9 @@ public class MongoResource {
     public Response post(String statement) {
         try {
             Parser parser = mongoPlugin.parse(statement);
-            return Response.ok(mongoPlugin.execute(parser)).build();
+            Result result = mongoPlugin.execute(parser);
+
+            return Response.ok(result.getResult()).build();
         } catch (JSQLParserException e) {
             return Response.status(Response.Status.BAD_REQUEST)
                     .entity("Parsing error: " + e.getCause()).build();

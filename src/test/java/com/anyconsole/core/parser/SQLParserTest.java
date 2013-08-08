@@ -34,7 +34,7 @@ public class SQLParserTest {
         parser.execute(commandBuilder);
 
         Result result = commandBuilder.getCommand().execute();
-        System.out.println(result.getStringResult());
+        System.out.println(result.getResult());
     }
     
     @Test
@@ -44,6 +44,6 @@ public class SQLParserTest {
         parser.execute(commandBuilder);
 
         Result result = commandBuilder.getCommand().execute();
-        System.out.println(result.getStringResult());
+        System.out.println(result.getResult());
     }
 }

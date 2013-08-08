@@ -49,13 +49,9 @@ import net.sf.jsqlparser.expression.operators.relational.NotEqualsTo;
 import net.sf.jsqlparser.schema.Column;
 import net.sf.jsqlparser.statement.select.SubSelect;
 
-public class MongoWhereExprVisitor implements ExpressionVisitor {
+public class MongoWhereExpressionVisitor implements ExpressionVisitor {
 	
-	private BasicDBObject where;
-
-	public MongoWhereExprVisitor(BasicDBObject where) {
-		this.where = where;
-	}
+	private BasicDBObject where = new BasicDBObject();
 	
 	public BasicDBObject getExpression() {
 		return where;

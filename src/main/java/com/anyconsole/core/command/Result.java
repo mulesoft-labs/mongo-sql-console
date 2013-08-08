@@ -6,5 +6,5 @@ package com.anyconsole.core.command;
  */
 
 public interface Result {
-    String getStringResult();
+    <T extends Object> T getResult();
 }

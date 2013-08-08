@@ -15,11 +15,10 @@ public class MongoPlugin implements Plugin {
     }
 
     @Override
-    public String execute(Parser parser) throws Exception {
+    public Result execute(Parser parser) throws Exception {
         MongoCommandBuilder commandBuilder = new MongoCommandBuilder();
         parser.execute(commandBuilder);
 
-        Result result = commandBuilder.getCommand().execute();
-        return result.getStringResult();
+        return commandBuilder.getCommand().execute();
     }
 }

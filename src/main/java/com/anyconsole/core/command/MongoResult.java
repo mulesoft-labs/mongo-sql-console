@@ -4,16 +4,17 @@ package com.anyconsole.core.command;
  * User: kbabushkin
  * Date: 8/7/13
  */
-public class MongoResult implements Result {
+
+public class MongoResult<T> implements Result {
     
-    private final String result;
+    private final T result;
     
-    public MongoResult(String result) {
+    public MongoResult(T result) {
         this.result = result;
     }
 
     @Override
-    public String getStringResult() {
+    public T getResult() {
         return result;
     }
 }
