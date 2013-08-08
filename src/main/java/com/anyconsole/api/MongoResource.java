@@ -2,12 +2,14 @@ package com.anyconsole.api;
 
 import com.anyconsole.core.parser.Parser;
 import com.anyconsole.plugin.Plugin;
+import net.sf.jsqlparser.JSQLParserException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
 
 /**
  * User: kbabushkin
@@ -23,12 +25,16 @@ public class MongoResource {
 	private Plugin mongoPlugin;
 
     @POST
-    public String post(String statement) throws Exception {
-        // mongoPlugin.parse
-        // if parse failed return 404 + message
-        // if parse succeeded call execute and return result
-
-        Parser parser = mongoPlugin.parse(statement);
-        return mongoPlugin.execute(parser);
+    public Response post(String statement) {
+        try {
+            Parser parser = mongoPlugin.parse(statement);
+            return Response.ok(mongoPlugin.execute(parser)).build();
+        } catch (JSQLParserException e) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity("Parsing error: " + e.getCause()).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("Unexpected error: " + e.getCause()).build();
+        }
     }
 }

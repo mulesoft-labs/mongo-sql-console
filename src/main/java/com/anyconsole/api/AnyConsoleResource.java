@@ -9,9 +9,9 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Set;
 
 /**
  * User: kbabushkin
@@ -29,8 +29,8 @@ public class AnyConsoleResource {
 
     @GET
     @Path("keywords")
-    public Set<SQLKeyword> getSQLKeywords() {
-    	return new HashSet<SQLKeyword>(Arrays.asList(SQLKeyword.values()));
+    public Response getSQLKeywords() {
+    	return Response.ok(new HashSet<SQLKeyword>(Arrays.asList(SQLKeyword.values()))).build();
     }
 
     @Path("mongo")
