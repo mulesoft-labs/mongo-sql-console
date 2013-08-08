@@ -13,7 +13,7 @@ import java.net.UnknownHostException;
 
 public class MongoClient {
     private static String DEFAULT_DB_NAME = "hackathon";
-    private Mongo mongoClient;
+    private static Mongo mongoClient;
 
 
     // let's assume for now that db is localhost and has no credentials. MS.
