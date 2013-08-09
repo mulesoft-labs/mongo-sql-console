@@ -5,7 +5,7 @@
             cursor = $("#cursor"),
             writer = $("#writer"),
             textarea = $('#setter'),
-            template = '<span class="name">yulia</span> at <span class="computer">air.local</span><span class="directory"> ~ </span>';
+            template = '<span class="name">yulia</span> at <span class="computer">air.local</span><span class="directory"> ~\/Projects\/any-console\/ </span>';
 
         initTextarea();
         initNewLine();
@@ -32,7 +32,11 @@
         }
 
         function addToHistory(command, txt) {
-            history.append("<br/>$ ").append(command).append("<br/>").append(nl2br(JSON.stringify(txt)));
+            history.append("<br/>$ ");
+
+            if (txt !== ""){
+                history.append(command).append("<br/>").append(nl2br(JSON.stringify(txt)));
+            }
         }
 
         function nl2br(txt) {
@@ -52,10 +56,13 @@
 
         function moveIt(count, e) {
             e = e || window.event;
-            var keycode = e.keyCode || e.which;
+            var keycode = e.keyCode || e.which, command = writer.html();
 
+            if ( command.length === 0) {
+                reset("", "");
+                return 0;
+            }
             if (keycode == 13) {
-                var command = writer.html();
                 getData(command);
             } else {
                 if (keycode == 37 && parseInt(cursor.style.left) >= (0 - ((count - 1) * 10))) {
