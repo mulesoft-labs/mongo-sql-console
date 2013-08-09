@@ -1,0 +1,52 @@
+body {
+    background-color: black;
+    margin: 0;
+    padding: 0;
+    height: 99%;
+    color: lawngreen;
+}
+
+textarea#setter  {
+    left: -1000px;
+    position: absolute;
+}
+
+#cursor {
+    display: inline-block;
+    height: 16px;
+    width: 8px;
+}
+
+#terminal {
+    cursor: text;
+    overflow: auto;
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.name {
+    color: orangered;
+}
+
+.computer {
+    color: orange;
+}
+
+.directory {
+    color: yellow;
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+@-webkit-keyframes 'blink' {
+    0% { background: black; }
+    100% { background: lawngreen; }
+}
+
+.cssanimations #cursor {
+    -webkit-animation-direction: normal;
+    -webkit-animation-duration: 0.85s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-name: blink;
+    -webkit-animation-timing-function: ease;
+}

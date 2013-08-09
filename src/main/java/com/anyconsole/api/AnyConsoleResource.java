@@ -18,7 +18,7 @@ import java.util.HashSet;
  * Date: 8/6/13
  */
 
-@Path("/api")
+@Path("/")
 @Consumes("application/json")
 @Produces("application/json")
 @Component("any-console-resource")
