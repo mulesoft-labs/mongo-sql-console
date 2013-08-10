@@ -7,6 +7,9 @@
             textarea = $('#setter'),
             template = '<span class="name">yulia</span> at <span class="computer">air.local</span><span class="directory"> ~\/Projects\/any-console\/ </span>';
 
+        //TODO: hardcoded for now
+        var patt = /(select|from|where|update|set)/g;
+
         initTextarea();
         initNewLine();
         textarea.focus();
@@ -34,7 +37,7 @@
         function addToHistory(command, txt) {
             history.append("<br/>$ ");
 
-            if (txt !== ""){
+            if (txt !== "") {
                 history.append(command).append("<br/>").append(nl2br(JSON.stringify(txt)));
             }
         }
@@ -43,13 +46,29 @@
             return txt.replace(/\n/g, "<br />");
         }
 
+        function checkKeywords(command) {
+            var keyword = "", modified_command = command;
+            var n = command.match(patt) || null;
+
+            if (!n) {
+                return command;
+            }
+
+            for (var i = 0; i < n.length; i++) {
+                keyword = n[i];
+                modified_command = modified_command.replace(keyword.toLowerCase(), "<span class='keyword'>" + keyword + "</span>");
+            }
+            return modified_command;
+        }
+
         function writeit(from, e) {
             e = e || window.event;
             if (e.keyCode === 13) {
                 from.value = "";
             } else {
                 var tw = from.value;
-                writer.html(nl2br(tw));
+                //writer.html(nl2br(tw));
+                writer.html(checkKeywords(tw));
                 //TODO: here to parse key words, make them key words
             }
         }
@@ -58,9 +77,9 @@
             e = e || window.event;
             var keycode = e.keyCode || e.which, command = writer.html();
 
-            if ( command.length === 0) {
-                reset("", "");
-                return 0;
+            if (count === 0) {//TODO: handle empty case
+                //reset("", "");
+                //return 0;
             }
             if (keycode == 13) {
                 getData(command);
@@ -83,7 +102,7 @@
             $.ajax({
                 type: "POST",
                 url: "api/mongo",
-                data: command,
+                data: command.replace(/<(?:.|\n)*?>/gm, ''),
                 contentType: "application/json",
                 success: function (data) {
                     reset(command, data);

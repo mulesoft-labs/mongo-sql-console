@@ -36,6 +36,11 @@ textarea#setter  {
     color: yellow;
 }
 
+.keyword {
+    color: red;
+    text-transform:uppercase;
+}
+
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 @-webkit-keyframes 'blink' {
