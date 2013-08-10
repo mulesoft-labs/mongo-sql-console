@@ -38,7 +38,7 @@
             history.append("<br/>$ ");
 
             if (txt !== "") {
-                history.append(command).append("<br/>").append(nl2br(JSON.stringify(txt)));
+                history.append(command).append("<br/>").append(JSON.stringify(txt, undefined, 2));
             }
         }
 
@@ -67,9 +67,7 @@
                 from.value = "";
             } else {
                 var tw = from.value;
-                //writer.html(nl2br(tw));
                 writer.html(checkKeywords(tw));
-                //TODO: here to parse key words, make them key words
             }
         }
 

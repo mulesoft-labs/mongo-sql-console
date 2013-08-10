@@ -22,6 +22,9 @@ textarea#setter  {
     overflow: auto;
 }
 
+#history {
+    margin-bottom: 0;
+}
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 .name {
